@@ -1,18 +1,24 @@
-fin =open ("running-config.cfg")
-readfile=fin.read()
-def list_ifname_ip ():
-	mynote=dict()
-	for line in readfile.split():
-		word=line.strip()
-		if  word not in mynote:
-			mynote[line]=1
-		else:
-			mynote[line]+=1
-	print(mynote)
-	mylist=[]
-	for key,value in mynote.items():
-		if "nameif"in mynote:
-			mylist.append((value,key))
-	print (mylist)
-list_ifname_ip()
+
 			
+import math
+def list_ifname_ip():
+    mytask = open('running-config.cfg')
+    nameifdict=dict()
+
+    for line in mytask:
+        if "nameif" in line:
+            mytemplist = line.split()
+
+            next(mytask)
+            templine = next(mytask)
+            newlist= templine.split()
+
+            if mytemplist[0]=='nameif':
+                if newlist[0] == 'ip':
+                    mytuple=(newlist[2:])
+                    nameifdict[mytemplist[1]]=mytuple
+
+    return (nameifdict)
+
+ipconfigs = list_ifname_ip()
+print(ipconfigs)
